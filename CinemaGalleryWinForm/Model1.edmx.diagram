@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="780f44f074154676a24bdd4bbc88f375" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseCinemaGalleryModel.Actores" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseCinemaGalleryModel.Directores" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseCinemaGalleryModel.Peliculas" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseCinemaGalleryModel.PeliculasActores" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseCinemaGalleryModel.PeliculasDirectores" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseCinemaGalleryModel.FK_PeliculasActores_Actores" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseCinemaGalleryModel.FK_DirectoresPeliculas_Directores" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseCinemaGalleryModel.FK_PeliculasActores_Peliculas" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseCinemaGalleryModel.FK_PeliculasDirectores_Peliculas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseCinemaGalleryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="vida_personal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="filmografia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Idpelicula" Type="Int32" />
+    <NavigationProperty Name="PeliculasActores" Relationship="Self.FK_PeliculasActores_Actores" FromRole="Actores" ToRole="PeliculasActores" />
+  </EntityType>
+  <EntityType Name="Directores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="carrera" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="filmografia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="otros_trabajos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PeliculasDirectores" Relationship="Self.FK_DirectoresPeliculas_Directores" FromRole="Directores" ToRole="PeliculasDirectores" />
+  </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="titulo_original" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="titulo_traducido" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="director" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="duraccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="calificacion_IMBD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="calificacion_propia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descripcion_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="comentarios" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PeliculasActores" Relationship="Self.FK_PeliculasActores_Peliculas" FromRole="Peliculas" ToRole="PeliculasActores" />
+    <NavigationProperty Name="PeliculasDirectores" Relationship="Self.FK_PeliculasDirectores_Peliculas" FromRole="Peliculas" ToRole="PeliculasDirectores" />
+  </EntityType>
+  <EntityType Name="PeliculasActores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="idpelicula" Type="Int32" />
+    <Property Name="idactor" Type="Int32" />
+    <NavigationProperty Name="Actores" Relationship="Self.FK_PeliculasActores_Actores" FromRole="PeliculasActores" ToRole="Actores" />
+    <NavigationProperty Name="Peliculas" Relationship="Self.FK_PeliculasActores_Peliculas" FromRole="PeliculasActores" ToRole="Peliculas" />
+  </EntityType>
+  <EntityType Name="PeliculasDirectores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="idpelicula" Type="Int32" />
+    <Property Name="iddirector" Type="Int32" />
+    <NavigationProperty Name="Directores" Relationship="Self.FK_DirectoresPeliculas_Directores" FromRole="PeliculasDirectores" ToRole="Directores" />
+    <NavigationProperty Name="Peliculas" Relationship="Self.FK_PeliculasDirectores_Peliculas" FromRole="PeliculasDirectores" ToRole="Peliculas" />
+  </EntityType>
+  <Association Name="FK_PeliculasActores_Actores">
+    <End Role="Actores" Type="Self.Actores" Multiplicity="0..1" />
+    <End Role="PeliculasActores" Type="Self.PeliculasActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Actores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PeliculasActores">
+        <PropertyRef Name="idactor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DirectoresPeliculas_Directores">
+    <End Role="Directores" Type="Self.Directores" Multiplicity="0..1" />
+    <End Role="PeliculasDirectores" Type="Self.PeliculasDirectores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Directores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PeliculasDirectores">
+        <PropertyRef Name="iddirector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PeliculasActores_Peliculas">
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="0..1" />
+    <End Role="PeliculasActores" Type="Self.PeliculasActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PeliculasActores">
+        <PropertyRef Name="idpelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PeliculasDirectores_Peliculas">
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="0..1" />
+    <End Role="PeliculasDirectores" Type="Self.PeliculasDirectores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PeliculasDirectores">
+        <PropertyRef Name="idpelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseCinemaGalleryEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actores" EntityType="Self.Actores" />
+    <EntitySet Name="Directores" EntityType="Self.Directores" />
+    <EntitySet Name="Peliculas" EntityType="Self.Peliculas" />
+    <EntitySet Name="PeliculasActores" EntityType="Self.PeliculasActores" />
+    <EntitySet Name="PeliculasDirectores" EntityType="Self.PeliculasDirectores" />
+    <AssociationSet Name="FK_PeliculasActores_Actores" Association="Self.FK_PeliculasActores_Actores">
+      <End Role="Actores" EntitySet="Actores" />
+      <End Role="PeliculasActores" EntitySet="PeliculasActores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DirectoresPeliculas_Directores" Association="Self.FK_DirectoresPeliculas_Directores">
+      <End Role="Directores" EntitySet="Directores" />
+      <End Role="PeliculasDirectores" EntitySet="PeliculasDirectores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeliculasActores_Peliculas" Association="Self.FK_PeliculasActores_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="PeliculasActores" EntitySet="PeliculasActores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeliculasDirectores_Peliculas" Association="Self.FK_PeliculasDirectores_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="PeliculasDirectores" EntitySet="PeliculasDirectores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
